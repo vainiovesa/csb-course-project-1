@@ -1,0 +1,18 @@
+h2 {
+    text-align: center;
+}
+
+nav ul {
+    text-align: center;
+    padding: 0;
+    margin: 0.5em;
+    background-color: lightblue;
+}
+
+nav li {
+    text-align: center;
+}
+
+.content {
+    text-align: center;
+}
