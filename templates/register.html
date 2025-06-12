@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Application</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  <div class="header">
+    <h2>Login</h2>
+  </div>
+
+  <div class="nav">
+    <nav>
+      <ul>
+        <li><a href="/">Main page</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="content">
+    <p>Register to application</p>
+    <form action="/register" method="post">
+      <p>
+        <label for="username">Username</label>:<br />
+        <input type="text" name="username" id="username" required />
+      </p>
+      <p>
+        <label for="password">Password</label>:<br />
+        <input type="password" name="password-1" id="password-1" required />
+      </p>
+      <p>
+        <label for="password">Password again</label>:<br />
+        <input type="password" name="password-2" id="password-2" required />
+      </p>
+      <input type="submit" value="Login" name="Register" />
+    </form>
+  </div>
+</body>
+
+</html>
