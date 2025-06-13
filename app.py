@@ -14,12 +14,12 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        sql = f"SELECT id, password FROM Users WHERE username = '{username}'"
-        user = db_query(sql)
+        sql = f"SELECT id, password FROM Users WHERE username = ?"
+        user = db_query(sql, [username])
         if not user:
             flash(f"No user with name {username}")
             return redirect("/login")
-        print(user)
+
         user_id, actual_password = user[0]
         if password != actual_password:
             flash(f"Incorrect password")
@@ -42,22 +42,22 @@ def register():
             flash("Passwords don't match")
             return redirect("/register")
 
-        sql = f"INSERT INTO Users (username, password) VALUES ('{username}', '{password_1}')"
-        db_execute(sql)
+        sql = f"INSERT INTO Users (username, password) VALUES (?, ?)"
+        db_execute(sql, [username, password_1])
 
         return redirect("/")
 
     return render_template("register.html")
 
-def db_execute(sql):
+def db_execute(sql, params=[]):
     con = sqlite3.connect("database.db")
-    con.execute(sql)
+    con.execute(sql, params)
     con.commit()
     con.close()
 
-def db_query(sql):
+def db_query(sql, params=[]):
     con = sqlite3.connect("database.db")
-    result = con.execute(sql).fetchall()
+    result = con.execute(sql, params).fetchall()
     con.close()
     return result
 
