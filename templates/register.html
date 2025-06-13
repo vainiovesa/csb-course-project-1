@@ -21,6 +21,14 @@
     </nav>
   </div>
 
+  <div class="messages">
+    {% for message in get_flashed_messages() %}
+    <p>
+    <b>{{ message }}</b>
+    </p>
+    {% endfor %}
+  </div>
+
   <div class="content">
     <p>Register to application</p>
     <form action="/register" method="post">

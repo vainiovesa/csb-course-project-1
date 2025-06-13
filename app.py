@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session, request
+from flask import Flask, render_template, redirect, flash, session, request
 import sqlite3
 import config
 
@@ -15,13 +15,18 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         sql = f"SELECT id, password FROM Users WHERE username = '{username}'"
-        user_id, actual_password = db_query(sql)[0]
-        if not actual_password:
+        user = db_query(sql)
+        if not user:
+            flash(f"No user with name {username}")
             return redirect("/login")
+        print(user)
+        user_id, actual_password = user[0]
         if password != actual_password:
+            flash(f"Incorrect password")
             return redirect("/login")
 
         session["user_id"] = user_id
+        flash(f"Logged in as {username}")
 
         return redirect("/")
 
@@ -34,6 +39,7 @@ def register():
         password_1 = request.form["password-1"]
         password_2 = request.form["password-2"]
         if password_1 != password_2:
+            flash("Passwords don't match")
             return redirect("/register")
 
         sql = f"INSERT INTO Users (username, password) VALUES ('{username}', '{password_1}')"

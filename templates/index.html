@@ -20,8 +20,16 @@
       </ul>
     </nav>
   </div>
-
-  <div class="content">
+  
+  <div class="messages">
+    {% for message in get_flashed_messages() %}
+    <p>
+    <b>{{ message }}</b>
+    </p>
+    {% endfor %}
+  </div>
+  
+    <div class="content">
     <p style="color: navy;">
       This is an application that introduces five known security flaws and fixes them.
       The flaws and their fixes will be listed on this main page.</br>
