@@ -17,6 +17,10 @@ Install Flask.
 ```console
 $ pip3 install flask
 ```
+Create a database.
+```console
+$ sqlite3 database.db < schema.sql
+```
 Run the application.
 ```console
 $ python3 app.py
