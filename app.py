@@ -92,6 +92,11 @@ def register():
 
 @app.route("/<int:user_id>")
 def secret_message(user_id):
+    if "user_id" not in session:
+        abort(403)
+    if session["user_id"] != user_id:
+        abort(403)
+
     sql = "SELECT username FROM Users WHERE id = ?"
     username = db_query(sql, [user_id])[0][0]
     message = f"Hello {username}!"
