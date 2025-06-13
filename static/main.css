@@ -19,6 +19,15 @@ nav li {
     text-align: center;
 }
 
+.content h2 {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+img {
+    border: solid red 2px;
+}
+
 .messages {
     text-align: center;
 }
