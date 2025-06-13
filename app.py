@@ -117,8 +117,11 @@ def secret_message(user_id):
     # if session["user_id"] != user_id:
     #     abort(403)
 
-    sql = "SELECT username FROM Users WHERE id = ?"
-    username = db_query(sql, [user_id])[0][0]
+    # sql = "SELECT username FROM Users WHERE id = ?"
+    # username = db_query(sql, [user_id])[0][0]
+
+    sql = f"SELECT username FROM Users WHERE id = {user_id}"
+    username = db_query(sql)[0][0]
     message = f"Hello {username}!"
     return render_template("message.html", message=message)
 
