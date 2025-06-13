@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, flash, session, request
 from string import ascii_letters, digits, punctuation
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import config
 
@@ -14,15 +15,18 @@ def index():
 def login():
     if request.method == "POST":
         username = request.form["username"]
-        password = request.form["password"]
-        sql = f"SELECT id, password FROM Users WHERE username = ?"
+
+        sql = f"SELECT id, password_hash FROM Users WHERE username = ?"
         user = db_query(sql, [username])
+
         if not user:
             flash(f"No user with name {username}")
             return redirect("/login")
 
-        user_id, actual_password = user[0]
-        if password != actual_password:
+        password = request.form["password"]
+        user_id, password_hash = user[0]
+
+        if not check_password_hash(password_hash, password):
             flash(f"Incorrect password")
             return redirect("/login")
 
@@ -67,8 +71,9 @@ def register():
             flash(f"Password must include punctuation characters ({punctuation})")
             return redirect("/register")
 
-        sql = f"INSERT INTO Users (username, password) VALUES (?, ?)"
-        db_execute(sql, [username, password_1])
+        password_hash = generate_password_hash(password_1)
+        sql = f"INSERT INTO Users (username, password_hash) VALUES (?, ?)"
+        db_execute(sql, [username, password_hash])
 
         flash(f"Account {username} created")
         return redirect("/")
