@@ -45,6 +45,7 @@ def register():
         sql = f"INSERT INTO Users (username, password) VALUES (?, ?)"
         db_execute(sql, [username, password_1])
 
+        flash(f"Account {username} created")
         return redirect("/")
 
     return render_template("register.html")
