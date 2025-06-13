@@ -29,12 +29,27 @@
     {% endfor %}
   </div>
   
-    <div class="content">
-    <p style="color: navy;">
+  <div class="content" style="color: navy;">
+    <p>
       This is an application that introduces five known security flaws and fixes them.
       The flaws and their fixes will be listed on this main page.</br>
       It was created by user <a href="https://github.com/vainiovesa">vainiovesa</a> on Github for a course project.
     </p>
+    <h2>1. Injection</h2>
+    <p>
+      According to <a href="https://owasp.org/Top10/A03_2021-Injection/">OWASP</a>, an application is vulnerable to
+      injection when user-supplied data is not sanitazed. </br>
+      In this application, the user is able to log in as any user with a speially crafted SQL command due to the
+      functionality of the login function. 
+    </p>
+    <img src="/static/flaw-1-before-1.png" alt="Login function before" width="30%">
+    <img src="/static/flaw-1-before-2.png" alt="Injection SQL command" width="30%">
+    <p>
+      Here, the SQL command that is run reads "SELECT id, password FROM Users WHERE username = 'a' AND 1=2 UNION
+      SELECT 1, 'a' WHERE 'a'='a'" and returns </br>
+      id 1 and password "a". By logging in with password "a", an attacker is now logged in as user with id 1.
+    </p>
+    <img src="/static/flaw-1-before-3.png" alt="Attacker logged in" width="30%">
   </div>
 </body>
 
