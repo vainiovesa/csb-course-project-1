@@ -37,6 +37,12 @@ def login():
 
     return render_template("login.html")
 
+@app.route("/logout")
+def logout():
+    if "user_id" in session:
+        del session["user_id"]
+    return redirect("/")
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -83,6 +89,13 @@ def register():
         return redirect("/")
 
     return render_template("register.html")
+
+@app.route("/<int:user_id>")
+def secret_message(user_id):
+    sql = "SELECT username FROM Users WHERE id = ?"
+    username = db_query(sql, [user_id])[0][0]
+    message = f"Hello {username}!"
+    return render_template("message.html", message=message)
 
 def db_execute(sql, params=[]):
     con = sqlite3.connect("database.db")

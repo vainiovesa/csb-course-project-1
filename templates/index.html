@@ -17,6 +17,10 @@
         <li><a href="/">Main page</a></li>
         <li><a href="/login">Login</a></li>
         <li><a href="/register">Register</a></li>
+        {% if session.user_id %}
+          <li><a href="/{{ session.user_id }}">Secret message</a></li>
+          <li><a href="/logout">Logout</a></li>
+        {% endif %}
       </ul>
     </nav>
   </div>
