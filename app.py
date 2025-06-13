@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, flash, session, request
+from flask import Flask, render_template, redirect, flash, abort, session, request
 from string import ascii_letters, digits, punctuation
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
@@ -73,7 +73,11 @@ def register():
 
         password_hash = generate_password_hash(password_1)
         sql = f"INSERT INTO Users (username, password_hash) VALUES (?, ?)"
-        db_execute(sql, [username, password_hash])
+        try:
+            db_execute(sql, [username, password_hash])
+        except sqlite3.IntegrityError:
+            flash(f"Username {username} already in use")
+            return redirect("/register")
 
         flash(f"Account {username} created")
         return redirect("/")
