@@ -47,9 +47,15 @@
     <p>
       Here, the SQL command that is run reads "SELECT id, password FROM Users WHERE username = 'a' AND 1=2 UNION
       SELECT 1, 'a' WHERE 'a'='a'" and returns </br>
-      id 1 and password "a". By logging in with password "a", an attacker is now logged in as user with id 1.
+      id 1 and password "a". By logging in with password "a", an attacker is now logged in as user with the id 1.
     </p>
     <img src="/static/flaw-1-before-3.png" alt="Attacker logged in" width="30%">
+    <p>
+      Python's sqlite3 module offers a solution to this problem. Using parameters, the user input is sanitazed and
+      SQL injection attacks are prevented.
+    </p>
+    <img src="/static/flaw-1-after-1.png" alt="Login function after" width="30%">
+    <img src="/static/flaw-1-after-2.png" alt="Injection SQL command not working" width="30%">
   </div>
 </body>
 
