@@ -72,7 +72,7 @@
     <img src="/static/flaw-2-before-2.png" alt="Account created" width="20%">
     <img src="/static/flaw-2-before-3.png" alt="User in the database before" width="20%">
     <p>
-      The problem of the weak passwords can be solved using password checking. The application now checks that a
+      The problem of the weak passwords is solved using password checking. The application now checks that a
       provided password does not match with the username </br>
       and contains at least 8 characters that include letters, numbers and punctuation characters.
     </p>
@@ -88,6 +88,16 @@
     <img src="/static/flaw-2-after-5.png" alt="" width="26%"> </br>
     <img src="/static/flaw-2-after-6.png" alt="" width="60%">
 
+    <h2>3. Broken Access Control</h2>
+    <p>
+      According to <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP</a>, an application has broken access
+      control if a user is able to bypass access control checks by modifying the URL or acting as a user without </br>
+      being logged in. In the current state of the application, a user can access other users' secret message pages by
+      modifying the URL even without being logged in.
+    </p>
+    <img src="/static/flaw-3-before-1.png" alt="" width="20%">
+    <img src="/static/flaw-3-before-2.png" alt="" width="10%">
+    
   </div>
 </body>
 
