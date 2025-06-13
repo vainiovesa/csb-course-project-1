@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, flash, session, request
+from string import ascii_letters, digits, punctuation
 import sqlite3
 import config
 
@@ -36,10 +37,34 @@ def login():
 def register():
     if request.method == "POST":
         username = request.form["username"]
+        if len(username) < 4:
+            flash("Username must be at least 4 characters")
+            return redirect("/register")
+
         password_1 = request.form["password-1"]
         password_2 = request.form["password-2"]
         if password_1 != password_2:
             flash("Passwords don't match")
+            return redirect("/register")
+
+        if len(password_1) < 8:
+            flash("Password must be at least 8 characters")
+            return redirect("/register")
+
+        if password_1 == username:
+            flash("Username and password cannot match")
+            return redirect("/register")
+
+        if not any([ltr in password_1 for ltr in ascii_letters]):
+            flash("Password must include letters")
+            return redirect("/register")
+
+        if not any([num in password_1 for num in digits]):
+            flash("Password must include numbers")
+            return redirect("/register")
+        
+        if not any([num in password_1 for num in punctuation]):
+            flash(f"Password must include punctuation characters ({punctuation})")
             return redirect("/register")
 
         sql = f"INSERT INTO Users (username, password) VALUES (?, ?)"

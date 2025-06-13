@@ -1,5 +1,5 @@
 CREATE TABLE Users (
     id INTEGER PRIMARY KEY,
-    username TEXT,
+    username TEXT UNIQUE,
     password TEXT
 );
