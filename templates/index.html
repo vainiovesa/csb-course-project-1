@@ -84,9 +84,9 @@
       about users got leaked, the passwords would still </br>
       not be easy to access.
     </p>
-    <img src="/static/flaw-2-after-4.png" alt="" width="34%">
-    <img src="/static/flaw-2-after-5.png" alt="" width="26%"> </br>
-    <img src="/static/flaw-2-after-6.png" alt="" width="60%">
+    <img src="/static/flaw-2-after-4.png" alt="Generate and save password hash" width="34%">
+    <img src="/static/flaw-2-after-5.png" alt="Check password hash" width="26%"> </br>
+    <img src="/static/flaw-2-after-6.png" alt="User information in the database" width="60%">
 
     <h2>3. Broken Access Control</h2>
     <p>
@@ -96,12 +96,12 @@
       being logged in. In the current state of the application, a user can access other users' secret message pages by
       modifying the URL even without being logged in.
     </p>
-    <img src="/static/flaw-3-before-1.png" alt="" width="60%">
+    <img src="/static/flaw-3-before-1.png" alt="Secret message acquired by modifying the URL" width="60%">
     <p>
       This vulnerability is fixed by adding checks to see that user is logged in and has the right user id.
     </p>
-    <img src="/static/flaw-3-after-1.png" alt="" width="30%">
-    <img src="/static/flaw-3-after-2.png" alt="" width="30%">
+    <img src="/static/flaw-3-after-1.png" alt="User check" width="30%">
+    <img src="/static/flaw-3-after-2.png" alt="Forbidden" width="30%">
 
     <h2>4. Cross-Site Request Forgery</h2>
     <p>
@@ -113,9 +113,9 @@
       that the user is logged in and completes an involuntary action in the targeted website. The example
       page csrf.html has a form that, when submitted, logs a logged in user out.
     </p>
-    <img src="/static/flaw-4-before-1.png" alt="" width="30%">
-    <img src="/static/flaw-4-before-2.png" alt="" width="30%"> </br>
-    <img src="/static/flaw-4-before-3.png" alt="" width="60%">
+    <img src="/static/flaw-4-before-1.png" alt="User logged in" width="30%">
+    <img src="/static/flaw-4-before-2.png" alt="User visiting malicious page" width="30%"> </br>
+    <img src="/static/flaw-4-before-3.png" alt="User logged out" width="60%">
 
   </div>
 </body>
