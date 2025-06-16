@@ -28,7 +28,7 @@ def login():
             return redirect("/login")
 
         session["user_id"] = user_id
-        session["csrf_token"] = secrets.token_hex(16)
+        # session["csrf_token"] = secrets.token_hex(16)
         flash(f"Logged in as {username}")
 
         return redirect("/")
@@ -60,9 +60,9 @@ def login():
 def logout():
     if request.method == "POST":
         if "log-out" in request.form:
-            check_csrf()
+            # check_csrf()
             del session["user_id"]
-            del session["csrf_token"]
+            # del session["csrf_token"]
             flash("You are now logged out")
         
         return redirect("/")
@@ -158,11 +158,11 @@ def db_query(sql):
 #     con.close()
 #     return result
 
-def check_csrf():
-    if "csrf_token" not in request.form:
-        abort(403)
-    if request.form["csrf_token"] != session["csrf_token"]:
-        abort(403)
+# def check_csrf():
+#     if "csrf_token" not in request.form:
+#         abort(403)
+#     if request.form["csrf_token"] != session["csrf_token"]:
+#         abort(403)
 
 if __name__=="__main__":
     app.run(debug=True)
