@@ -5,7 +5,7 @@ Course Project I for the course series Cyber Security Base 2025 (University of H
 ### Installing and running the application
 First, copy this Github project to your machine. You will then have to run the following commands in the project directory.
 
-Make a virtual environment (if you do not have Flask installed).
+Make a virtual environment (if you do not have Flask or requests installed).
 ```console
 $ python3 -m venv venv
 ```
@@ -16,6 +16,10 @@ $ source venv/bin/activate
 Install Flask.
 ```console
 $ pip3 install flask
+```
+Install requests for testing the logging flaw.
+```console
+$ pip3 install requests
 ```
 Create a database.
 ```console
