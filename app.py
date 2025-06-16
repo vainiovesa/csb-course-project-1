@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, flash, abort, session, reque
 from string import ascii_letters, digits, punctuation
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
+import secrets
 import config
 
 app = Flask(__name__)
@@ -27,6 +28,7 @@ def login():
             return redirect("/login")
 
         session["user_id"] = user_id
+        # session["csrf_token"] = secrets.token_hex(16)
         flash(f"Logged in as {username}")
 
         return redirect("/")
@@ -54,11 +56,17 @@ def login():
 
     return render_template("login.html")
 
-@app.route("/logout")
+@app.route("/logout", methods=["GET", "POST"])
 def logout():
-    if "user_id" in session:
-        del session["user_id"]
-    return redirect("/")
+    if request.method == "POST":
+        if "log-out" in request.form:
+            # check_csrf()
+            del session["user_id"]
+            del session["csrf_token"]
+        
+        return redirect("/")
+
+    return render_template("logout.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -148,6 +156,12 @@ def db_query(sql):
 #     result = con.execute(sql, params).fetchall()
 #     con.close()
 #     return result
+
+# def check_csrf():
+#     if "csrf_token" not in request.form:
+#         abort(403)
+#     if request.form["csrf_token"] != session["csrf_token"]:
+#         abort(403)
 
 if __name__=="__main__":
     app.run(debug=True)

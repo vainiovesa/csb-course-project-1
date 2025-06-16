@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Application</title>
+  <link rel="stylesheet" href="/static/main.css">
+</head>
+
+<body>
+  <div class="header">
+    <h2>Logout</h2>
+  </div>
+
+  <div class="nav">
+    <nav>
+      <ul>
+        <li><a href="/">Main page</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="messages">
+    {% for message in get_flashed_messages() %}
+    <p>
+    <b>{{ message }}</b>
+    </p>
+    {% endfor %}
+  </div>
+
+  <div class="content">
+    <p>Log out?</p>
+    <form action="/logout" method="post">
+      <input type="submit" value="yes" name="log-out" />
+      <input type="submit" value="no" name="no" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+    </form>
+  </div>
+</body>
+
+</html>
