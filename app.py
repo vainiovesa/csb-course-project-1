@@ -63,6 +63,7 @@ def logout():
             # check_csrf()
             del session["user_id"]
             # del session["csrf_token"]
+            flash("You are now logged out")
         
         return redirect("/")
 
