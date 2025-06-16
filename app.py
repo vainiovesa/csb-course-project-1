@@ -62,7 +62,7 @@ def logout():
         if "log-out" in request.form:
             # check_csrf()
             del session["user_id"]
-            del session["csrf_token"]
+            # del session["csrf_token"]
         
         return redirect("/")
 
