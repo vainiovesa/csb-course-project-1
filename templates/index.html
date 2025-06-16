@@ -116,6 +116,16 @@
     <img src="/static/flaw-4-before-1.png" alt="User logged in" width="30%">
     <img src="/static/flaw-4-before-2.png" alt="User visiting malicious page" width="30%"> </br>
     <img src="/static/flaw-4-before-3.png" alt="User logged out" width="60%">
+    <p>
+      This vulnerability is fixed by adding a randomly generated csrf token to the session using Python's secrets module.
+      This way the attacker can't predict all the information needed to </br>
+      complete the malicious action. 
+    </p>
+    <img src="/static/flaw-4-after-4.png" alt="creating the csrf token" width="32%">
+    <img src="/static/flaw-4-after-5.png" alt="checking the csrf token" width="28%"> </br>
+    <img src="/static/flaw-4-after-1.png" alt="User logged in" width="30%">
+    <img src="/static/flaw-4-after-2.png" alt="User visiting malicious page" width="30%"> </br>
+    <img src="/static/flaw-4-after-3.png" alt="Forbidden" width="60%">
 
   </div>
 </body>
