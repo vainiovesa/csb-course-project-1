@@ -42,7 +42,7 @@
 
     <h2>1. Injection</h2>
     <p>
-      According to <a href="https://owasp.org/Top10/A03_2021-Injection/">OWASP</a>, an application is vulnerable to
+      According to <a href="https://owasp.org/www-project-top-ten/2017/A1_2017-Injection">OWASP</a>, an application is vulnerable to
       injection when user-supplied data is not sanitazed. </br>
       In this application, the user was able to log in as any user with a specially crafted SQL command due to the
       functionality of the login function. 
@@ -62,9 +62,9 @@
     <img src="/static/flaw-1-after-1.png" alt="Login function after" width="30%">
     <img src="/static/flaw-1-after-2.png" alt="Injection SQL command not working" width="30%">
 
-    <h2>2. Identification and Authentication Failures </h2>
+    <h2>2. Broken Authentication </h2>
     <p>
-      According to <a href="https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/">OWASP</a>,
+      According to <a href="https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication">OWASP</a>,
       an application is vulnerable to this flaw when it permits weak passwords or stores them as plain text. </br>
       This application had both of these vulnerabilities present.
     </p>
@@ -90,8 +90,9 @@
 
     <h2>3. Broken Access Control</h2>
     <p>
-      According to <a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/">OWASP</a>, an application has broken access
-      control if a user is able to bypass access control checks by modifying the URL or acting as a user without </br>
+      According to <a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control/">OWASP</a>,
+      an application has broken access control if a user is able to bypass access control checks by modifying the URL
+      or acting as a user without </br>
       being logged in. In the current state of the application, a user can access other users' secret message pages by
       modifying the URL even without being logged in.
     </p>
