@@ -62,7 +62,7 @@
     <img src="/static/flaw-1-after-1.png" alt="Login function after" width="30%">
     <img src="/static/flaw-1-after-2.png" alt="Injection SQL command not working" width="30%">
 
-    <h2>2. Broken Authentication </h2>
+    <h2 id="broken-authentication">2. Broken Authentication </h2>
     <p>
       According to <a href="https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication">OWASP</a>,
       an application is vulnerable to this flaw when it permits weak passwords or stores them as plain text. </br>
@@ -126,6 +126,19 @@
     <img src="/static/flaw-4-after-1.png" alt="User logged in" width="30%">
     <img src="/static/flaw-4-after-2.png" alt="User visiting malicious page" width="30%"> </br>
     <img src="/static/flaw-4-after-3.png" alt="Forbidden" width="60%">
+
+    <h2>5. Insufficient Logging & Monitoring</h2>
+    <p>
+      The <a href="https://owasp.org/www-project-top-ten/2017/A10_2017-Insufficient_Logging%2526Monitoring">OWAPS</a>
+      list states that an application is vulnerable any time auditable events are not logged. This application currently
+      does not log any events beyond web server logs. As the </br>
+      logging_flaw.py script shows, this allows an attacker to automate password guessing. This is especially dangerous
+      combined with <a href="/#broken-authentication">allowing weak passwords.</a> In this case there is a </br>
+      registered user with the password "admin". The image on the left shows a command and the output and the image on the
+      right shows a fraction of the logging attempts.
+    </p>
+    <img src="/static/flaw-5-before-1.png" alt="Command and output" width="35%">
+    <img src="/static/flaw-5-before-2.png" alt="Web server log" width="25%"> </br>
 
   </div>
 </body>

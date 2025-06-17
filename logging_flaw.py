@@ -4,7 +4,7 @@ import requests
 def iterate_through(username, guess_length):
     candidates = create_passwords(guess_length)
 
-    for candidate in candidates:
+    for candidate in candidates[536310:]:
         session = requests.Session()
         data = {"username":username, "password":candidate}
         response = session.post("http://127.0.0.1:5000/login", data=data)
