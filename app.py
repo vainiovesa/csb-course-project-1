@@ -25,17 +25,17 @@ def login():
             flash(f"No user with name {username}")
             return redirect("/login")
 
-        if not can_login(username):
-            flash("Too many login attempts. Try again later")
-            return redirect("/")
+        # if not can_login(username):
+        #     flash("Too many login attempts. Try again later")
+        #     return redirect("/")
 
         user_id, actual_password = user[0]
         if password != actual_password:
-            log_login(username, False)
+            # log_login(username, False)
             flash("Incorrect password")
             return redirect("/login")
 
-        log_login(username, True)
+        # log_login(username, True)
         session["user_id"] = user_id
         # session["csrf_token"] = secrets.token_hex(16)
         flash(f"Logged in as {username}")
@@ -173,38 +173,38 @@ def db_query(sql):
 #     if request.form["csrf_token"] != session["csrf_token"]:
 #         abort(403)
 
-def log_login(username, success):
-    login_time = str(datetime.now())
-    sql = "INSERT INTO Logins (time_at, username, success) VALUES (?, ?, ?)"
-    con = sqlite3.connect("log.db")
-    con.execute(sql, [login_time, username, success])
-    con.commit()
-    con.close()
+# def log_login(username, success):
+#     login_time = str(datetime.now())
+#     sql = "INSERT INTO Logins (time_at, username, success) VALUES (?, ?, ?)"
+#     con = sqlite3.connect("log.db")
+#     con.execute(sql, [login_time, username, success])
+#     con.commit()
+#     con.close()
 
-def get_logins(username):
-    sql = """
-          SELECT   time_at, success
-          FROM     Logins
-          WHERE    username = ?
-          ORDER BY id DESC
-          LIMIT    5
-          """
-    con = sqlite3.connect("log.db")
-    result = con.execute(sql, [username]).fetchall()
-    con.close()
-    return result
+# def get_logins(username):
+#     sql = """
+#           SELECT   time_at, success
+#           FROM     Logins
+#           WHERE    username = ?
+#           ORDER BY id DESC
+#           LIMIT    5
+#           """
+#     con = sqlite3.connect("log.db")
+#     result = con.execute(sql, [username]).fetchall()
+#     con.close()
+#     return result
 
-def can_login(username):
-    last_logins = get_logins(username)
-    if len(last_logins) < 5:
-        return True
-    if not any(ll[1] for ll in last_logins):
-        last_login = last_logins[-1]
-        login_at = last_login[0]
-        login_datetime = datetime.strptime(login_at, '%Y-%m-%d %X.%f')
-        return login_datetime < datetime.now() - timedelta(minutes=5)
+# def can_login(username):
+#     last_logins = get_logins(username)
+#     if len(last_logins) < 5:
+#         return True
+#     if not any(ll[1] for ll in last_logins):
+#         last_login = last_logins[-1]
+#         login_at = last_login[0]
+#         login_datetime = datetime.strptime(login_at, '%Y-%m-%d %X.%f')
+#         return login_datetime < datetime.now() - timedelta(minutes=5)
 
-    return True
+#     return True
 
 if __name__=="__main__":
     app.run(debug=True)
