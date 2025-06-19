@@ -21,9 +21,12 @@ Install requests for testing the logging flaw.
 ```console
 $ pip3 install requests
 ```
-Create a database.
+Create a databases.
 ```console
 $ sqlite3 database.db < schema.sql
+```
+```console
+$ sqlite3 log.db < log_schema.sql
 ```
 Run the application.
 ```console
