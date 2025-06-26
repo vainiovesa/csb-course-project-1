@@ -33,116 +33,116 @@
     {% endfor %}
   </div>
   
-  <div class="content" style="color: navy;">
+  <div class="content">
     <p>
       This is an application that introduces five known security flaws and fixes them.
-      The flaws and their fixes will be listed on this main page.</br>
+      The flaws and their fixes will be listed on this main page.
       It was created by user <a href="https://github.com/vainiovesa">vainiovesa</a> on Github for a course project.
     </p>
 
     <h2>1. Injection</h2>
     <p>
       According to <a href="https://owasp.org/www-project-top-ten/2017/A1_2017-Injection">OWASP</a>, an application is vulnerable to
-      injection when user-supplied data is not sanitazed. </br>
+      injection when user-supplied data is not sanitazed.
       In this application, the user was able to log in as any user with a specially crafted SQL command due to the
       functionality of the login function. 
     </p>
-    <img src="/static/flaw-1-before-1.png" alt="Login function before" width="30%">
-    <img src="/static/flaw-1-before-2.png" alt="Injection SQL command" width="30%">
+    <img src="/static/flaw-1-before-1.png" alt="Login function before" width="49%">
+    <img src="/static/flaw-1-before-2.png" alt="Injection SQL command" width="49%">
     <p>
       Here, the SQL command that is run reads "SELECT id, password FROM Users WHERE username = 'a' AND 1=2 UNION
-      SELECT 1, 'a' WHERE 'a'='a'" and returns </br>
+      SELECT 1, 'a' WHERE 'a'='a'" and returns
       id 1 and password "a". By logging in with password "a", an attacker is now logged in as user with the id 1.
     </p>
-    <img src="/static/flaw-1-before-3.png" alt="Attacker logged in" width="30%">
+    <img src="/static/flaw-1-before-3.png" alt="Attacker logged in" width="50%">
     <p>
       Python's sqlite3 module offers a solution to this problem. Using parameters, the user input is sanitazed and
       SQL injection attacks are prevented.
     </p>
-    <img src="/static/flaw-1-after-1.png" alt="Login function after" width="30%">
-    <img src="/static/flaw-1-after-2.png" alt="Injection SQL command not working" width="30%">
+    <img src="/static/flaw-1-after-1.png" alt="Login function after" width="49%">
+    <img src="/static/flaw-1-after-2.png" alt="Injection SQL command not working" width="49%">
 
     <h2 id="broken-authentication">2. Broken Authentication </h2>
     <p>
       According to <a href="https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication">OWASP</a>,
-      an application is vulnerable to this flaw when it permits weak passwords or stores them as plain text. </br>
+      an application is vulnerable to this flaw when it permits weak passwords or stores them as plain text.
       This application had both of these vulnerabilities present.
     </p>
-    <img src="/static/flaw-2-before-1.png" alt="Creating account with weak password" width="20%">
-    <img src="/static/flaw-2-before-2.png" alt="Account created" width="20%">
-    <img src="/static/flaw-2-before-3.png" alt="User in the database before" width="20%">
+    <img src="/static/flaw-2-before-1.png" alt="Creating account with weak password" width="30%">
+    <img src="/static/flaw-2-before-2.png" alt="Account created" width="34%">
+    <img src="/static/flaw-2-before-3.png" alt="User in the database before" width="34%">
     <p>
       The problem of the weak passwords is solved using password checking. The application now checks that a
-      provided password does not match with the username </br>
+      provided password does not match with the username>
       and contains at least 8 characters that include letters, numbers and punctuation characters.
     </p>
-    <img src="/static/flaw-2-after-1.png" alt="Weak password attempt 1" width="18%">
-    <img src="/static/flaw-2-after-2.png" alt="Weak password attempt 2" width="18%">
-    <img src="/static/flaw-2-after-3.png" alt="Checking password" width="24%">
+    <img src="/static/flaw-2-after-1.png" alt="Weak password attempt 1" width="28%">
+    <img src="/static/flaw-2-after-2.png" alt="Weak password attempt 2" width="28%">
+    <img src="/static/flaw-2-after-3.png" alt="Checking password" width="42%">
     <p>
       The passwords are now stored not as plain text but as hashes using Python's Werkzeug library. If the information
-      about users got leaked, the passwords would still </br>
+      about users got leaked, the passwords would still
       not be easy to access.
     </p>
-    <img src="/static/flaw-2-after-4.png" alt="Generate and save password hash" width="34%">
-    <img src="/static/flaw-2-after-5.png" alt="Check password hash" width="26%"> </br>
-    <img src="/static/flaw-2-after-6.png" alt="User information in the database" width="60%">
+    <img src="/static/flaw-2-after-4.png" alt="Generate and save password hash" width="53%">
+    <img src="/static/flaw-2-after-5.png" alt="Check password hash" width="45%">
+    <img src="/static/flaw-2-after-6.png" alt="User information in the database" width="100%">
 
     <h2>3. Broken Access Control</h2>
     <p>
       According to <a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control/">OWASP</a>,
       an application has broken access control if a user is able to bypass access control checks by modifying the URL
-      or acting as a user without </br>
+      or acting as a user without
       being logged in. In the current state of the application, a user can access other users' secret message pages by
       modifying the URL even without being logged in.
     </p>
-    <img src="/static/flaw-3-before-1.png" alt="Secret message acquired by modifying the URL" width="60%">
+    <img src="/static/flaw-3-before-1.png" alt="Secret message acquired by modifying the URL" width="100%">
     <p>
       This vulnerability is fixed by adding checks to see that user is logged in and has the right user id.
     </p>
-    <img src="/static/flaw-3-after-1.png" alt="User check" width="30%">
-    <img src="/static/flaw-3-after-2.png" alt="Forbidden" width="30%">
+    <img src="/static/flaw-3-after-1.png" alt="User check" width="49%">
+    <img src="/static/flaw-3-after-2.png" alt="Forbidden" width="49%">
 
     <h2>4. Cross-Site Request Forgery</h2>
     <p>
       Though not in the OWASP list, the CSRF-vulnerability is such a fundamental flaw that it is 
       <a href="https://cybersecuritybase.mooc.fi/module-3.1#heading-project-description">allowed</a> in this project.
-      This flaw involves another website controlled by </br>
+      This flaw involves another website controlled by
       an attacker and requires the user to be logged in. The malicious website has elements (in our case, a form)
-      pointing to the vulnerable website. It leverages the fact </br>
+      pointing to the vulnerable website. It leverages the fact
       that the user is logged in and completes an involuntary action in the targeted website. The example
       page csrf.html has a form that, when submitted, logs a logged in user out.
     </p>
-    <img src="/static/flaw-4-before-1.png" alt="User logged in" width="30%">
-    <img src="/static/flaw-4-before-2.png" alt="User visiting malicious page" width="30%"> </br>
-    <img src="/static/flaw-4-before-3.png" alt="User logged out" width="60%">
+    <img src="/static/flaw-4-before-1.png" alt="User logged in" width="49.6%">
+    <img src="/static/flaw-4-before-2.png" alt="User visiting malicious page" width="49.6%">
+    <img src="/static/flaw-4-before-3.png" alt="User logged out" width="100%">
     <p>
       This vulnerability is fixed by adding a randomly generated csrf token to the session using Python's secrets module.
-      This way the attacker can't predict all the information needed to </br>
+      This way the attacker can't predict all the information needed to
       complete the malicious action. 
     </p>
-    <img src="/static/flaw-4-after-4.png" alt="creating the csrf token" width="32%">
-    <img src="/static/flaw-4-after-5.png" alt="checking the csrf token" width="28%"> </br>
-    <img src="/static/flaw-4-after-1.png" alt="User logged in" width="30%">
-    <img src="/static/flaw-4-after-2.png" alt="User visiting malicious page" width="30%"> </br>
-    <img src="/static/flaw-4-after-3.png" alt="Forbidden" width="60%">
+    <img src="/static/flaw-4-after-4.png" alt="creating the csrf token" width="52%">
+    <img src="/static/flaw-4-after-5.png" alt="checking the csrf token" width="46%">
+    <img src="/static/flaw-4-after-1.png" alt="User logged in" width="100%">
+    <img src="/static/flaw-4-after-2.png" alt="User visiting malicious page" width="100%">
+    <img src="/static/flaw-4-after-3.png" alt="Forbidden" width="100%">
 
     <h2>5. Insufficient Logging & Monitoring</h2>
     <p>
       The <a href="https://owasp.org/www-project-top-ten/2017/A10_2017-Insufficient_Logging%2526Monitoring">OWAPS</a>
       list states that an application is vulnerable any time auditable events are not logged. This application currently
-      does not log any events beyond web server logs. As the </br>
+      does not log any events beyond web server logs. As the
       logging_flaw.py script shows, this allows an attacker to automate password guessing. This is especially dangerous
-      combined with <a href="/#broken-authentication">allowing weak passwords.</a> In this case there is a </br>
-      registered user with the password "admin". The image on the left shows a command and the output and the image on the
-      right shows a fraction of the logging attempts.
+      combined with <a href="/#broken-authentication">allowing weak passwords.</a> In this case there is a
+      registered user with the password "admin". The image on the top shows a command and the output and the image on the
+      bottom shows a fraction of the logging attempts.
     </p>
-    <img src="/static/flaw-5-before-1.png" alt="Command and output" width="35%">
-    <img src="/static/flaw-5-before-2.png" alt="Web server log" width="25%"> </br>
+    <img src="/static/flaw-5-before-1.png" alt="Command and output" width="60%">
+    <img src="/static/flaw-5-before-2.png" alt="Web server log" width="60%">
     <p>
       By logging login attempts and their successes, we can limit the times an attacker can try different passwords.
     </p>
-    <img src="/static/flaw-5-after-1.png" alt="Web server log" width="25%"> </br>
+    <img src="/static/flaw-5-after-1.png" alt="Web server log" width="60%">
 
   </div>
 </body>

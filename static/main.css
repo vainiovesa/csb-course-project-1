@@ -31,3 +31,11 @@ img {
 .messages {
     text-align: center;
 }
+
+.content {
+    color: navy;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
