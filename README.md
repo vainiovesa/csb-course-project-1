@@ -33,3 +33,8 @@ Run the application.
 $ python3 app.py
 ```
 
+### Testing CSRF flaw
+Make sure you are logged in and the application is running. Then run this command.
+```console
+$ firefox csrf.html
+```
